@@ -74,8 +74,15 @@ namespace lfs
                         var detailsSpan = tr.SelectSingleNode(".//span[@class='small']");
                         if (detailsSpan.ChildNodes.Count > 2)
                         {
-                            f.OriginalName = detailsSpan.ChildNodes[0].InnerText.Trim();
-                            detailsSpan = detailsSpan.ChildNodes[2];
+                            if (detailsSpan.ChildNodes[2].InnerText.IndexOf('/') > -1)
+                            {
+                                f.OriginalName = detailsSpan.ChildNodes[0].InnerText.Trim();
+                                detailsSpan = detailsSpan.ChildNodes[2];
+                            }
+                            else
+                            {
+                                detailsSpan = detailsSpan.ChildNodes[0];
+                            }
                         }
 
                         if (detailsSpan.InnerText.IndexOf('/') > -1)
