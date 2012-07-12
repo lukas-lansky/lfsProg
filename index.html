@@ -10,11 +10,11 @@ $(document).ready(function() {
         currentDay = window.location.hash.substring(1);
     }
 
-    for (d = 9; d <= 26; d++)
+    for (d = 9; d <= 28; d++)
     {
         var bold = $.inArray(d, [9, 11, 14, 17, 21, 23, 26]) !== -1;
         $("<div>", {
-            style: "border-bottom: dashed 1px " + (bold?"black":"grey") + "; position: absolute; top: " + ((d-6)*60+50) + "px; width: 95%; height: 10px"
+            style: "border-bottom: dashed 1px " + (bold?"black":"grey") + "; position: absolute; top: " + ((d-6)*60+50) + "px; width: 2600px; height: 10px"
         }).appendTo("body");
         if (bold)
         {
@@ -89,9 +89,15 @@ function redraw()
         });
         desc += "</div>";
 
+        var btop = evStart.getHours()-6-timeShift;
+        if (btop < 0)
+        {
+            btop += 24;
+        }
+
         $("<div/>", {
             class: "box",
-            style: "top: " + ((evStart.getHours()-6-timeShift)*60+evStart.getMinutes()+60) + "px; left: " + (100+200*bui) + "px; height: " + (event["TotalDuration"]<60 ? 60 : event["TotalDuration"]) + "px",
+            style: "top: " + (btop*60 + evStart.getMinutes()+60) + "px; left: " + (100+200*bui) + "px; height: " + (event["TotalDuration"]<60 ? 60 : event["TotalDuration"]) + "px",
             html: desc,
             click: function () {
                 if ($(this).css("background-color") === "rgb(195, 108, 85)")
